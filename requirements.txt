@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 appdirs==1.4.4
 asgiref==3.3.1
 distlib==0.3.1
@@ -9,8 +9,6 @@ pytz==2020.4
 six==1.15.0
 sqlparse==0.4.1
 virtualenv==20.4.3
-<<<<<<< HEAD
-=======
 appdirs==1.4.4
 asgiref==3.3.1
 distlib==0.3.1
@@ -21,7 +19,4 @@ pytz==2020.4
 six==1.15.0
 sqlparse==0.4.1
 virtualenv==20.4.3
->>>>>>> 4c2eaaf871ebb0d17094f2dc3c08146e6e722526
-=======
 whitenoise==5.2.0
->>>>>>> f578688c5f0dd0570a68234b693fa211708d70d2
