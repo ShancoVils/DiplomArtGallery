@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-3l!3+(t=o951b_z@kn*va=^thu9ft&0)0)k%^a70!q_7k!n43*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['artgallety.herokuapp.com']
+ALLOWED_HOSTS = ['artgallerydiplom.herokuapp.com']
 AUTH_USER_MODEL = 'artgallery.CustomUser'
 
 # Application definition
