@@ -1,0 +1,179 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+body{
+    background: rgb(238, 238, 238);
+    font-family: 'Playfair Display', serif;
+    
+}
+
+.main-block{
+    margin-top: 70px;
+    height: 500px;
+    display: flex;
+    width: 100%;
+}
+
+.image-window{
+    height: 105%;
+    background: #fff;
+    margin: 0 auto;
+    width: 67%;
+    box-shadow: 0px 0px 5px 0px rgba(51, 48, 50, 1);
+    
+}
+
+.work-info{
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    margin: 0 auto;
+    width: 27%;
+    box-shadow: 0px 0px 5px 0px rgba(51, 48, 50, 1);
+}
+
+
+.work-info form{
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    margin: 0 auto;
+    width: 100%;
+    box-shadow: 0px 0px 5px 0px rgba(51, 48, 50, 1);
+}
+
+.work-info form label{
+    margin-right: 10%;
+    text-align: right;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 550;
+}
+
+.work-info form input{
+    border: none;
+    margin: 0 auto;
+    width: 80%;
+    font-family: 'Playfair Display', serif;
+    font-size: 16pt;
+    border-bottom: 1px solid #c70202;
+
+}
+
+.work-info form select{
+    border: none;
+    margin: 0 auto;
+    width: 80%;
+    font-family: 'Playfair Display', serif;
+    font-size: 16pt;
+    border-bottom: 1px solid #c70202;
+}
+
+
+.work-info form textarea{
+    margin: 0 auto;
+    width: 80%;
+    font-family: 'Playfair Display', serif;
+    font-size: 16pt;
+    border: 1px solid #c70202;
+
+}
+
+.work-info form button{
+    margin: 0 auto;
+    width: 80%;
+    font-family: 'Playfair Display', serif;
+    font-size: 16pt;
+    border: 1px solid #c70202;
+}
+
+.work-info form  input[type=file]{
+    display: none;
+}
+
+.work-info form .upload-image{
+    color: rgb(240, 240, 240);
+    cursor: pointer;
+    margin-left: 10%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+    width: 80%;
+    background-color: #c70202;
+    border: 2px solid #c70202; 
+    border-radius: 10px;
+    transition: .2s linear;
+}
+
+
+
+.work-info form .upload-button
+{
+    color: rgb(240, 240, 240);
+    cursor: pointer;
+    margin-left: 10%;
+    text-align: center;
+    width: 80%;
+    background-color: #c70202;
+    border: 2px solid #c70202; 
+    border-radius: 10px;
+    transition: .2s linear;
+    margin-top: 30px;
+}
+.form-hidden{
+    visibility: hidden;
+}
+
+.work-info textarea{
+    resize: none;
+}
+
+.items{
+    position: absolute;
+}
+
+.template{
+    position: absolute;
+}
+
+.image-window{
+    display: flex;
+}
+
+
+.image-window  img{
+    
+    position: absolute ;
+    margin: 18% 0 0 15% ;
+    width: 220% !important;
+    height: 150% !important;
+
+}
+
+
+.image-window  img :hover{
+    opacity: 1;
+
+
+}
+
+
+.item:hover img {
+    opacity: 1 !important;
+  }
+  
+  
+.item:hover {
+    background: none !important;
+}
+
+.zagluha_id{
+    display: none;
+}
+
+

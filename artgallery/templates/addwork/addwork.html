@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="{% static '/main/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/addwork/style.css' %}">
+  <script src= "{% static "main/scripts.js"  %}"></script>  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <title>Авторизация</title>
+</head>
+<body>
+    <header id="5">
+        <div class="left-part-menu">
+            <a href="/" class="full_logitip"><img class="logotip"  src="{% static "img/logotip.png" %}">
+            <span>ARTGALLERY</span></a>
+            <ul>
+                <a href="{% url 'autors' %}">Авторы</a>
+                <a href="{% url 'work_category' %}">Работы</a>
+                <a href="{% url 'popular' %}">Популярное</a>
+                <a href="{% url 'contacts' %}">Контакты</a>  
+         </ul>       
+        </div>
+
+        <div class="right-part-menu">
+            <div class="user-info">
+                    {% if user.is_authenticated %}
+                        <div class="avatarka_header" >
+                            {% if user.image %}
+                                <img src="{{ user.image.url}}" alt="gg" width="50px"> 
+                            {% else %}
+                                <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <button  type="submit" onclick="LoginButt()">ВОЙТИ</button>
+                    {% endif %}    
+            </div>  
+            {% if user.is_authenticated %}
+            <div class="user-info_block" >
+                <div class="user-info_block-first_1">
+                    <div class="avatarka-profile-info">
+                        {% if user.image %}
+                            <img src="{{ user.image.url}}" alt="gg" width="50px"> 
+                        {% else %}
+                            <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
+                        {% endif %}
+                    </div>
+                    <div class = "user-info_block_info">
+                        <span>{{ user.name }}</span>
+                        <span>{{ user.email }}</span>
+                    </div>
+                </div>
+                <div class="user-info_block-first_2">
+                    <ul>
+                        <li><a href="{% url 'profile' %}">Профиль</a></li>
+                        <li><a href="">Настройки</a></li>
+                    </ul>      
+                </div>
+                <div class="user-info_block-first_3">
+                    <span><a href="{% url 'logout' %}">Выйти</a></span>
+                </div>                    
+            </div>   
+            {% else %}   
+            
+            
+            {% endif %}  
+        </div> 
+        
+    </header>
+
+    <section>
+        <div class="main-block">
+            <span class="zagluha_id" >{{user.id}}</span>
+            <div class="work-info">
+                <form  enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    <label for="title">НАЗВАНИЕ</label>
+                    <input type="text" name="title" class="form-styling">
+                    <label for="category">КАТЕГОРИЯ</label>
+                    <select name="category">
+                        <option >Photoshop art</option>
+                        <option >Landing page</option>
+                        <option >Illustrator art</option>
+                        <option >UI</option>
+                        <option >Photo</option>
+                        <option >Product design</option>
+                    </select>
+                    <label for="description">ОПИСАНИЕ</label>
+                    <textarea  name="description" class="form-styling" rows="3" cols="45"></textarea>
+                    <label for="price" >ЦЕНА <sub>(руб.)</sub> </label>
+                    <input  type="text" name="price">
+                    <label >ИЗОБРАЖЕНИЕ</label>
+                    <label class="upload-image" for="addImages">Загрузить</label>
+                    <input  type="file" name="photo" id="addImages">
+                    <input class="upload-button" type="submit" value="Готово">
+                    <input type="text" name="autor" class="form-styling form-hidden" value="{{user.id}}">
+                    
+                </form>
+            </div>
+            <div class="image-window">
+                    <ul id="uploadImagesList">
+                        <li class="item template">
+                            <span class="img-wrap">
+                                <img class="image-position" src="image.jpg" alt="">
+                            </span>
+                        </li>
+                    </ul>
+            </div>    
+        </div> 
+    </section>
+
+    <script>
+        jQuery(document).ready(function ($) {
+            var imagesList = $('#uploadImagesList');
+            var itemPreviewTemplate = imagesList.find('.item.template').clone();
+            itemPreviewTemplate.removeClass('template');
+            imagesList.find('.item.template').remove();
+            $('#addImages').on('change', function () {
+                var files = this.files;  
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    preview(files[i]);
+                }
+            });
+            // Создание превью
+            function preview(file) {
+                var reader = new FileReader();
+                reader.addEventListener('load', function(event) {
+                    var img = document.createElement('img');
+                    var itemPreview = itemPreviewTemplate.clone();
+                    itemPreview.find('.img-wrap img').attr('src', event.target.result);
+                    imagesList.append(itemPreview);
+
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+        
+       </script>
+ 
+</body>
+</html>

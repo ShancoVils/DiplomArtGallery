@@ -1,0 +1,437 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static '/main/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/work_category/style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+    <script src= "{% static "main/scripts.js"  %}"></script> 
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/logotip.png' %}"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <title>Каталог</title>
+</head>
+<body>
+    <header id="5">
+        <div class="left-part-menu">
+            <a href="/" class="full_logitip"><img class="logotip"  src="{% static "img/logotip.png" %}">
+            <span>ARTGALLERY</span></a>
+            <ul>
+                <a href="{% url 'autors' %}">Авторы</a>
+                <a href="{% url 'work_category' %}">Работы</a>
+                <a href="{% url 'popular' %}">Популярное</a>
+                <a href="{% url 'contacts' %}">Контакты</a>  
+         </ul>       
+        </div>
+
+        <div class="right-part-menu">
+            <div class="user-info">
+                    {% if user.is_authenticated %}
+                        <div class="avatarka_header" >
+                            {% if user.image %}
+                                <img src="{{ user.image.url}}" alt="gg" width="50px"> 
+                            {% else %}
+                                <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <button  type="submit" onclick="LoginButt()">ВОЙТИ</button>
+                    {% endif %}    
+            </div>  
+            {% if user.is_authenticated %}
+            <div class="user-info_block" >
+                <div class="user-info_block-first_1">
+                    <div class="avatarka-profile-info">
+                        {% if user.image %}
+                            <img src="{{ user.image.url}}" alt="gg" width="50px"> 
+                        {% else %}
+                            <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
+                        {% endif %}
+                    </div>
+                    <div class = "user-info_block_info">
+                        <span>{{ user.name }}</span>
+                        <span>{{ user.email }}</span>
+                    </div>
+                </div>
+                <div class="user-info_block-first_2">
+                    <ul>
+                        <li><a href="{% url 'profile' %}">Профиль</a></li>
+                        <li><a href="">Настройки</a></li>
+                    </ul>      
+                </div>
+                <div class="user-info_block-first_3">
+                    <span><a href="{% url 'logout' %}">Выйти</a></span>
+                </div>                    
+            </div>   
+            {% else %}   
+            
+            
+            {% endif %}  
+        </div> 
+        
+    </header>
+    <section class="catalog container">
+
+        
+        <h1 class="head-title">Работы</h1>
+        <h1 class="head-title">Landing page</h1>    
+        <div class="slider_container_block">
+            <div class="slider_buttons">        
+                <label class="button_slider" id="left_button_label" for="left_button"><i class="far fa-arrow-alt-circle-left"></i></label>
+                <label class="button_slider" id="right_button_label" for="right_button"><i class="far fa-arrow-alt-circle-right"></i></label>
+            </div>
+            <button id="right_button" onclick="right_button_landing()">Вперед</button>
+            <button id="left_button" onclick="left_button_landing()">Назад</button>
+            <div class="catalog-list"  id="sliders_cont_landing">
+                {% comment %} Начало цикла загрузки работ {% endcomment %}
+                {% comment %}Лендосы {% endcomment %}
+                        {% for Works in Works %}
+                            {% if Works.category == "Landing page" %}
+                            <div class="item_on">
+                                <a href="{% url 'workpage' Works.id %}">
+                                    <div class="item">
+                                        <div class="category-icon_lp">
+                                            <span>LP</span>
+                                        </div>
+                                        <span class="hide_title"> {{Works.title}}</span>
+                                        <img src="{{ Works.photo.url }}" loading="lazy" >
+                                    </a>
+                                        <div class="item-info">
+                                            <div class="username">
+                                                    {% if Works.autor.image %}
+                                                        <img class= "work-autor-avatar" src="{{ Works.autor.image.url}}" alt="gg"> 
+                                                    {% else %}
+                                                        <img src="{% static "img/emptyuserimage.jpg" %}" class= "work-autor-avatar" >
+                                                    {% endif %}
+                                                    <span class="name">
+                                                        {{Works.autor.name}}
+                                                        <div class="hover-profile">
+                                                            <div class="username">
+                                                                <i class="fas fa-user"></i>
+                                                                <div class="username_name-city">
+                                                                    <span class="name-hover"> {{Works.autor}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <button class="submit-btn">Подписаться</button>
+                                                        </div>
+                                                    </span>
+                                                </i>
+                                            </div>
+                                            <div class="stats">
+                                                <div class="likes">
+                                                    <i class="far fa-thumbs-up"><span class="count-likes">{{ Works.total_likes }}</span></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                                
+                            {% endif %}
+                        {% endfor %}                
+            </div>
+
+        </div>
+        
+               
+        <h1 class="head-title">Photoshop art</h1>
+        <div class="slider_container_block">
+            <div class="slider_buttons">        
+                <label class="button_slider" id="left_button_label_photoshop" for="left_button_photoshop"><i class="far fa-arrow-alt-circle-left"></i></label>
+                <label class="button_slider" id="right_button_label_photoshop" for="right_button_photoshop"><i class="far fa-arrow-alt-circle-right"></i></label>
+            </div>
+            <button id="right_button_photoshop" onclick="right_button_photoshop()">Вперед</button>
+            <button id="left_button_photoshop" onclick="left_button_photoshop()">Назад</button>
+            <div class="catalog-list"  id="sliders_cont_photoshop">
+                {% comment %} Начало цикла загрузки работ {% endcomment %}
+                {% comment %}Лендосы {% endcomment %}
+                        {% for Works in Works %}
+                            {% if Works.category == "Photoshop art" %}
+                            <div class="item_on">
+                                <a href="{% url 'workpage' Works.id %}">
+                                    <div class="item">
+                                        <div class="category-icon_lp">
+                                            <span>LP</span>
+                                        </div>
+                                        <span class="hide_title"> {{Works.title}}</span>
+                                        <img src="{{ Works.photo.url }}" loading="lazy" >
+                                    </a>
+                                        <div class="item-info">
+                                            <div class="username">
+                                                    {% if Works.autor.image %}
+                                                        <img class= "work-autor-avatar" src="{{ Works.autor.image.url}}" alt="gg"> 
+                                                    {% else %}
+                                                        <img src="{% static "img/emptyuserimage.jpg" %}" class= "work-autor-avatar" >
+                                                    {% endif %}
+                                                    <span class="name">
+                                                        {{Works.autor.name}}
+                                                        <div class="hover-profile">
+                                                            <div class="username">
+                                                                <i class="fas fa-user"></i>
+                                                                <div class="username_name-city">
+                                                                    <span class="name-hover"> {{Works.autor}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <button class="submit-btn">Подписаться</button>
+                                                        </div>
+                                                    </span>
+                                                </i>
+                                            </div>
+                                            <div class="stats">
+                                                <div class="likes">
+                                                    <i class="far fa-thumbs-up"><span class="count-likes">{{ Works.total_likes }}</span></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                                
+                            {% endif %}
+                        {% endfor %}                
+            </div>
+
+        </div>
+
+        <h1 class="head-title">Illustrator art</h1>
+        <div class="slider_container_block">
+            <div class="slider_buttons">        
+                <label class="button_slider" id="left_button_label_illustrator" for="left_button_illustrator"><i class="far fa-arrow-alt-circle-left"></i></label>
+                <label class="button_slider" id="right_button_label_illustrator" for="right_button_illustrator"><i class="far fa-arrow-alt-circle-right"></i></label>
+            </div>
+            <button id="right_button_illustrator" onclick="right_button_illustrator()">Вперед</button>
+            <button id="left_button_illustrator" onclick="left_button_illustrator()">Назад</button>
+            <div class="catalog-list"  id="sliders_cont_illustrator">
+                {% comment %} Начало цикла загрузки работ {% endcomment %}
+                {% comment %}Лендосы {% endcomment %}
+                        {% for Works in Works %}
+                            {% if Works.category == "Illustrator art" %}
+                            <div class="item_on">
+                                <a href="{% url 'workpage' Works.id %}">
+                                    <div class="item">
+                                        <div class="category-icon_lp">
+                                            <span>LP</span>
+                                        </div>
+                                        <span class="hide_title"> {{Works.title}}</span>
+                                        <img src="{{ Works.photo.url }}" loading="lazy" >
+                                    </a>
+                                        <div class="item-info">
+                                            <div class="username">
+                                                    {% if Works.autor.image %}
+                                                        <img class= "work-autor-avatar" src="{{ Works.autor.image.url}}" alt="gg"> 
+                                                    {% else %}
+                                                        <img src="{% static "img/emptyuserimage.jpg" %}" class= "work-autor-avatar" >
+                                                    {% endif %}
+                                                    <span class="name">
+                                                        {{Works.autor.name}}
+                                                        <div class="hover-profile">
+                                                            <div class="username">
+                                                                <i class="fas fa-user"></i>
+                                                                <div class="username_name-city">
+                                                                    <span class="name-hover"> {{Works.autor}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <button class="submit-btn">Подписаться</button>
+                                                        </div>
+                                                    </span>
+                                                </i>
+                                            </div>
+                                            <div class="stats">
+                                                <div class="likes">
+                                                    <i class="far fa-thumbs-up"><span class="count-likes">{{ Works.total_likes }}</span></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                                
+                            {% endif %}
+                        {% endfor %}                
+            </div>
+
+        </div>
+
+        <h1 class="head-title">UI</h1>
+        <div class="slider_container_block">
+            <div class="slider_buttons">        
+                <label class="button_slider" id="left_button_label_ui" for="left_button_ui"><i class="far fa-arrow-alt-circle-left"></i></label>
+                <label class="button_slider" id="right_button_label_ui" for="right_button_ui"><i class="far fa-arrow-alt-circle-right"></i></label>
+            </div>
+            <button id="right_button_ui" onclick="right_button_ui()">Вперед</button>
+            <button id="left_button_ui" onclick="left_button_ui()">Назад</button>
+            <div class="catalog-list"  id="sliders_cont_ui">
+                {% comment %} Начало цикла загрузки работ {% endcomment %}
+                {% comment %}Лендосы {% endcomment %}
+                        {% for Works in Works %}
+                            {% if Works.category == "UI" %}
+                            <div class="item_on">
+                                <a href="{% url 'workpage' Works.id %}">
+                                    <div class="item">
+                                        <div class="category-icon_lp">
+                                            <span>LP</span>
+                                        </div>
+                                        <span class="hide_title"> {{Works.title}}</span>
+                                        <img src="{{ Works.photo.url }}" loading="lazy" >
+                                    </a>
+                                        <div class="item-info">
+                                            <div class="username">
+                                                    {% if Works.autor.image %}
+                                                        <img class= "work-autor-avatar" src="{{ Works.autor.image.url}}" alt="gg"> 
+                                                    {% else %}
+                                                        <img src="{% static "img/emptyuserimage.jpg" %}" class= "work-autor-avatar" >
+                                                    {% endif %}
+                                                    <span class="name">
+                                                        {{Works.autor.name}}
+                                                        <div class="hover-profile">
+                                                            <div class="username">
+                                                                <i class="fas fa-user"></i>
+                                                                <div class="username_name-city">
+                                                                    <span class="name-hover"> {{Works.autor}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <button class="submit-btn">Подписаться</button>
+                                                        </div>
+                                                    </span>
+                                                </i>
+                                            </div>
+                                            <div class="stats">
+                                                <div class="likes">
+                                                    <i class="far fa-thumbs-up"><span class="count-likes">{{ Works.total_likes }}</span></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                                
+                            {% endif %}
+                        {% endfor %}                
+            </div>
+
+        </div>
+
+
+        <h1 class="head-title">Photo</h1>
+        <div class="slider_container_block">
+            <div class="slider_buttons">        
+                <label class="button_slider" id="left_button_label_photo" for="left_button_photo"><i class="far fa-arrow-alt-circle-left"></i></label>
+                <label class="button_slider" id="right_button_label_photo" for="right_button_photo"><i class="far fa-arrow-alt-circle-right"></i></label>
+            </div>
+            <button id="right_button_photo" onclick="right_button_photo()">Вперед</button>
+            <button id="left_button_photo" onclick="left_button_photo()">Назад</button>
+            <div class="catalog-list"  id="sliders_cont_photo">
+                {% comment %} Начало цикла загрузки работ {% endcomment %}
+                {% comment %}Лендосы {% endcomment %}
+                        {% for Works in Works %}
+                            {% if Works.category == "Photo" %}
+                            <div class="item_on">
+                                <a href="{% url 'workpage' Works.id %}">
+                                    <div class="item">
+                                        <div class="category-icon_lp">
+                                            <span>LP</span>
+                                        </div>
+                                        <span class="hide_title"> {{Works.title}}</span>
+                                        <img src="{{ Works.photo.url }}" loading="lazy" >
+                                    </a>
+                                        <div class="item-info">
+                                            <div class="username">
+                                                    {% if Works.autor.image %}
+                                                        <img class= "work-autor-avatar" src="{{ Works.autor.image.url}}" alt="gg"> 
+                                                    {% else %}
+                                                        <img src="{% static "img/emptyuserimage.jpg" %}" class= "work-autor-avatar" >
+                                                    {% endif %}
+                                                    <span class="name">
+                                                        {{Works.autor.name}}
+                                                        <div class="hover-profile">
+                                                            <div class="username">
+                                                                <i class="fas fa-user"></i>
+                                                                <div class="username_name-city">
+                                                                    <span class="name-hover"> {{Works.autor}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <button class="submit-btn">Подписаться</button>
+                                                        </div>
+                                                    </span>
+                                                </i>
+                                            </div>
+                                            <div class="stats">
+                                                <div class="likes">
+                                                    <i class="far fa-thumbs-up"><span class="count-likes">{{ Works.total_likes }}</span></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                                
+                            {% endif %}
+                        {% endfor %}                
+            </div>
+
+        </div>
+
+        
+        <h1 class="head-title">Product design</h1>
+        <div class="slider_container_block">
+            <div class="slider_buttons">        
+                <label class="button_slider" id="left_button_label_pd" for="left_button_pd"><i class="far fa-arrow-alt-circle-left"></i></label>
+                <label class="button_slider" id="right_button_label_pd" for="right_button_pd"><i class="far fa-arrow-alt-circle-right"></i></label>
+            </div>
+            <button id="right_button_pd" onclick="right_button_pd()">Вперед</button>
+            <button id="left_button_pd" onclick="left_button_pd()">Назад</button>
+            <div class="catalog-list"  id="sliders_cont_pd">
+                {% comment %} Начало цикла загрузки работ {% endcomment %}
+                {% comment %}Лендосы {% endcomment %}
+                        {% for Works in Works %}
+                            {% if Works.category == "Product design" %}
+                            <div class="item_on">
+                                <a href="{% url 'workpage' Works.id %}">
+                                    <div class="item">
+                                        <div class="category-icon_lp">
+                                            <span>LP</span>
+                                        </div>
+                                        <span class="hide_title"> {{Works.title}}</span>
+                                        <img src="{{ Works.photo.url }}" loading="lazy" >
+                                    </a>
+                                        <div class="item-info">
+                                            <div class="username">
+                                                    {% if Works.autor.image %}
+                                                        <img class= "work-autor-avatar" src="{{ Works.autor.image.url}}" alt="gg"> 
+                                                    {% else %}
+                                                        <img src="{% static "img/emptyuserimage.jpg" %}" class= "work-autor-avatar" >
+                                                    {% endif %}
+                                                    <span class="name">
+                                                        {{Works.autor.name}}
+                                                        <div class="hover-profile">
+                                                            <div class="username">
+                                                                <i class="fas fa-user"></i>
+                                                                <div class="username_name-city">
+                                                                    <span class="name-hover"> {{Works.autor}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <button class="submit-btn">Подписаться</button>
+                                                        </div>
+                                                    </span>
+                                                </i>
+                                            </div>
+                                            <div class="stats">
+                                                <div class="likes">
+                                                    <i class="far fa-thumbs-up"><span class="count-likes">{{ Works.total_likes }}</span></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                                
+                            {% endif %}
+                        {% endfor %}                
+            </div>
+
+        </div>
+    </section>
+</body>
+</html>

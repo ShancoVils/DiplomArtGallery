@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static '/main/style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+    <script src= "{% static "main/scripts.js"  %}"></script> 
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/logotip.png' %}"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <title>Каталог</title>
+</head>
+<body>
+    <header id="5">
+        <div class="left-part-menu">
+            <a href="/" class="full_logitip"><img class="logotip"  src="{% static "img/logotip.png" %}">
+            <span>ARTGALLERY</span></a>
+            <ul>
+                <a href="{% url 'autors' %}">Авторы</a>
+                <a href="{% url 'work_category' %}">Работы</a>
+                <a href="{% url 'popular' %}">Популярное</a>
+                <a href="{% url 'contacts' %}">Контакты</a>  
+         </ul>       
+        </div>
+
+        <div class="right-part-menu">
+            <div class="user-info">
+                    {% if user.is_authenticated %}
+                        <div class="avatarka_header" >
+                            {% if user.image %}
+                                <img src="{{ user.image.url}}" alt="gg" width="50px"> 
+                            {% else %}
+                                <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <button  type="submit" onclick="LoginButt()">ВОЙТИ</button>
+                    {% endif %}    
+            </div>  
+            {% if user.is_authenticated %}
+            <div class="user-info_block" >
+                <div class="user-info_block-first_1">
+                    <div class="avatarka-profile-info">
+                        {% if user.image %}
+                            <img src="{{ user.image.url}}" alt="gg" width="50px"> 
+                        {% else %}
+                            <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
+                        {% endif %}
+                    </div>
+                    <div class = "user-info_block_info">
+                        <span>{{ user.name }}</span>
+                        <span>{{ user.email }}</span>
+                    </div>
+                </div>
+                <div class="user-info_block-first_2">
+                    <ul>
+                        <li><a href="{% url 'profile' %}">Профиль</a></li>
+                        <li><a href="">Настройки</a></li>
+                    </ul>      
+                </div>
+                <div class="user-info_block-first_3">
+                    <span><a href="{% url 'logout' %}">Выйти</a></span>
+                </div>                    
+            </div>   
+            {% else %}   
+            
+            
+            {% endif %}  
+        </div> 
+        
+    </header>
+    <section class="catalog container">
+        <nav class="category-menu">
+            <ul class="category-menu__inner">
+                <li class="category-menu__li"><a href="{% url 'Landing' %}">Landing page</a></li>
+                <li class="category-menu__li"><a href="{% url 'Photoshop' %}">Photoshop art</a></li>
+                <li class="category-menu__li"><a href="{% url 'Illustrator' %}">Illustrator art</a></li>
+                <li class="category-menu__li"><a href="{% url 'UICategory' %}">UI</a></li>
+                <li class="category-menu__li"><a href="{% url 'Photo' %}">Photo</a></li>
+                <li class="category-menu__li"><a href="{% url 'ProductDisign' %}">Product design</a></li>
+            </ul>
+        </nav>
+       
+
+
+        <h1 class="head-title">Photoshop art</h1>
+        <div class="catalog-list">
+        {% comment %} Начало цикла загрузки работ {% endcomment %}
+            {% for Works in Works %}
+            <a href="{% url 'workpage' Works.id %}">
+            <div class="item">
+                {% if Works.category == "Photoshop art" %}
+                    <div class="category-icon_psart">
+                        <span>Ps</span>
+                    </div>
+                {% elif  Works.category == "Product design"%}
+                    <div class="category-icon_pd">
+                        <span>Pd</span>
+                    </div>
+                {% elif  Works.category == "UI"%}
+                    <div class="category-icon_UI">
+                        <span>UI</span>
+                    </div>
+                {% elif  Works.category == "Illustrator art"%}
+                    <div class="category-icon_Ill">
+                        <span>Ai</span>
+                    </div>
+                {% elif  Works.category == "Photo"%}
+                    <div class="category-icon_photo">
+                        <span>Ph</span>
+                    </div>
+                {% elif  Works.category == "Landing page"%}
+                    <div class="category-icon_lp">
+                        <span>LP</span>
+                    </div>
+                {% endif %}
+                <span class="hide_title"> {{Works.title}}</span>
+                <img src="{{ Works.photo.url }}" loading="lazy" >
+            </a>
+                <div class="item-info">
+                    <div class="username">
+                            {% if Works.autor.image %}
+                                <img class= "work-autor-avatar" src="{{ Works.autor.image.url}}" alt="gg"> 
+                            {% else %}
+                                <img src="{% static "img/emptyuserimage.jpg" %}" class= "work-autor-avatar" >
+                            {% endif %}
+                            <span class="name">
+                                {{Works.autor.name}}
+                                <div class="hover-profile">
+                                    <div class="username">
+                                        <i class="fas fa-user"></i>
+                                        <div class="username_name-city">
+                                            <span class="name-hover"> {{Works.autor}}</span>
+                                        </div>
+                                    </div>
+                                    <button class="submit-btn">Подписаться</button>
+                                </div>
+                            </span>
+                        </i>
+                    </div>
+                
+                    <div class="stats">
+                        <div class="likes">
+                            <i class="far fa-thumbs-up"><span class="count-likes">{{ Works.total_likes }}</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+                
+            {% endfor %}    
+        </div>
+    </section>
+</body>
+</html>
