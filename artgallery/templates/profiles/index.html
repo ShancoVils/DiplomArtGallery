@@ -76,7 +76,15 @@
     </header>
     <section>
         <div class="profile-background_block">  
-            <img src="{{ user.background_image.url}}" >
+            {% if user.background_image %}
+            <div class="profile-background_block">  
+                <img src="{{ user.background_image.url}}" alt="" >
+            </div>
+        {% else %}
+            <div class="profile-background_block-none">  
+                <img   src="{% static "img/logotip.png" %}">
+            </div>
+        {% endif %}
         </div>
         <div class="profile-info_block" id="55">
             <ul>
