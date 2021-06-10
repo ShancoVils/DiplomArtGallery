@@ -32,7 +32,7 @@ window.addEventListener('scroll', function(){
 });
 
 function LoginButt(){
-    document.location.href = "registration/login";
+    document.location.href = "/registration/login";
 }
 
 

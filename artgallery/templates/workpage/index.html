@@ -79,6 +79,11 @@
                 </div>
                 <div class="information-block">
                     <h1>{{Works.title}}
+
+
+
+
+                {% if user.is_authenticated %}
                     {% if liked %}
                         <label for="work-like_button">
                         <i class=" workpage_like fas fa-thumbs-up">{{Works.total_likes }}</i>
@@ -102,6 +107,15 @@
                                 <button type = "submit" id="work-like_button" name = "work_id" value = "{{ Works.id}}" ></button>
                         </form>  
                     {% endif%} 
+                {% else %}
+                    <label for="work-like_button">
+                    <i class=" workpage_like fas fa-thumbs-up">{{Works.total_likes }}</i>
+                    <div class="title_like ">
+                        <span>Убрать оценку</span>
+                    </div>
+                    </label>
+                    <button type = "submit" onclick="LoginButt()" id="work-like_button" name = "work_id" value = "{{ Works.id}}" >Like</button>
+                {% endif %}    
                     </h1>
                     <span class="autor_name">{{Works.autor.name}}</span>
                     <span class="picture-resolution">Оригинальное разрешение: {{Works.photo.width}}*{{Works.photo.height}}</span>
@@ -115,9 +129,6 @@
                     <p class="discription">{{Works.description}}</p>
                 </div>
             </section>
-            
-            
-    
             <section class="other-work">
                 <div class="other-work_block">
                     <form method="POST" action="https://yoomoney.ru/quickpay/confirm.xml"> 
