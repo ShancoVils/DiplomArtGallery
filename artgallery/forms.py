@@ -1,10 +1,12 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.views import LoginView, LogoutView, AuthenticationForm
 from django import forms
+from django.db.models import fields
 from .models import Works
 from .models import Request
 
 from .models import CustomUser
+from artgallery import models
 
 # Подклассы форм Изминения и Добавления пользователей
 class CustomUserCreationForm(UserCreationForm):
@@ -54,10 +56,12 @@ class AddWorkForm(forms.ModelForm):
 class ChangeLoginForm(CustomUserChangeForm):
     class Meta: 
         model = CustomUser
-        fields = ('name', 'email')
+        fields = ('name', 'email','image','background_image')
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-input'}),
             'email': forms.EmailInput(attrs={'class': 'form-input'}),
+            'bill_number': forms.TextInput(attrs={'class': 'form-input'}),
+            'background_image':forms.FileInput(attrs={'class': 'form-input'}),
         }
 
 
@@ -71,5 +75,13 @@ class AddRequestForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-input'}),
             'email': forms.TextInput(attrs={'class': 'form-input'}),
             'message': forms.Textarea(attrs={'class': 'form-input'}),
+        }
+
+class ImageForm(CustomUserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = ('image',)
+        widgets = {
+            'image': forms.FileInput(attrs={'class': 'form-input'}),
         }
 

@@ -57,8 +57,8 @@
                 </div>
                 <div class="user-info_block-first_2">
                     <ul>
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        <li><a href="">Настройки</a></li>
+                        <li><a href="{% url 'profile' user.pk   %}">Профиль</a></li>
+                        <li><a href="{% url 'profile_option' user.pk %}">Настройки</a></li>
                     </ul>      
                 </div>
                 <div class="user-info_block-first_3">
@@ -72,7 +72,6 @@
         </div> 
         
     </header>
-
     <section class="workpage">
         {% for Works in Works %}
                 <div class="picture-block">
@@ -82,7 +81,7 @@
                     <h1>{{Works.title}}
                     {% if liked %}
                         <label for="work-like_button">
-                        <i class=" workpage_like fas fa-thumbs-up"></i>
+                        <i class=" workpage_like fas fa-thumbs-up">{{Works.total_likes }}</i>
                         <div class="title_like ">
                             <span>Убрать оценку</span>
                         </div>
@@ -91,13 +90,9 @@
                                 {% csrf_token %}
                                 <button type = "submit" id="work-like_button" name = "work_id" value = "{{ Works.id}}" >Like</button>
                         </form> 
-
-
-                        
-                        
                     {% else %}
                         <label class="hh" for="work-like_button">
-                        <i class=" workpage_dislike far fa-thumbs-up"></i>
+                        <i class=" workpage_dislike far fa-thumbs-up">{{Works.total_likes }} </i>
                         <div class="title_like">
                             <span>Оценить</span>
                         </div>
@@ -105,19 +100,15 @@
                         <form action="{% url 'like_work' Works.pk %}"  method='post' >
                                 {% csrf_token %}
                                 <button type = "submit" id="work-like_button" name = "work_id" value = "{{ Works.id}}" ></button>
-                        </form> 
-                        
-                    {% endif%}
-                            
+                        </form>  
+                    {% endif%} 
                     </h1>
-                    
                     <span class="autor_name">{{Works.autor.name}}</span>
                     <span class="picture-resolution">Оригинальное разрешение: {{Works.photo.width}}*{{Works.photo.height}}</span>
                     <span class="picture-category">Категория: {{Works.category}}</span>
                     <hr>
                     <span class="work-price"> &#8381 {{Works.price}}</span>
                     <label for="testbuy"><p class="btn-buy" type="submit" value="КУПИТЬ" >КУПИТЬ</p</label>
-                    
                 </div>
                 <div class="discription-block">
                     <h1>О работе</h1>
@@ -135,168 +126,7 @@
                         <input type="hidden" name="short-dest" value="">
                         <input type="hidden" name="label" value="$order_id"> 
                         <input type="hidden" name="quickpay-form" value="donate">
-                        <input type="hidden" name="targets" value="транзакция {order_id}">
-                        <input type="text" name="sum" value={{Works.price}} data-type="number">
-                        <input type="hidden" name="comment" value="Хотелось бы получить дистанционное управление.">
-                        <input type="hidden" name="need-fio" value="true">
-                        <input type="hidden" name="need-email" value="true">
-                        <input type="hidden" name="need-phone" value="false">
-                        <input type="hidden" name="need-address" value="false">
-                        <label><input type="radio" name="paymentType" value="AC" checked>Банковской картой</label>
-                        <input id="testbuy" type="submit" value="Перевести">
-                    </form>
-                </div>
-        {% endfor %} 
-
-        </section>
-        
-   
-
-
-
-    
-    
-    
-</body>
-</html>
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static '/main/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static '/workpage/style.css' %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
-    <script src= "{% static "main/scripts.js"  %}"></script> 
-    <link rel="shortcut icon" type="image/png" href="{% static 'img/logotip.png' %}"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
-    <title>Каталог</title>
-</head>
-<body>
-    <header id="5">
-        <div class="left-part-menu">
-            <a href="/" class="full_logitip"><img class="logotip"  src="{% static "img/logotip.png" %}">
-            <span>ARTGALLERY</span></a>
-            <ul>
-                <a href="{% url 'autors' %}">Авторы</a>
-                <a href="{% url 'work_category' %}">Работы</a>
-                <a href="{% url 'popular' %}">Популярное</a>
-                <a href="{% url 'contacts' %}">Контакты</a>  
-         </ul>       
-        </div>
-
-        <div class="right-part-menu">
-            <div class="user-info">
-                    {% if user.is_authenticated %}
-                        <div class="avatarka_header" >
-                            {% if user.image %}
-                                <img src="{{ user.image.url}}" alt="gg" width="50px"> 
-                            {% else %}
-                                <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
-                            {% endif %}
-                        </div>
-                    {% else %}
-                        <button  type="submit" onclick="LoginButt()">ВОЙТИ</button>
-                    {% endif %}    
-            </div>  
-            {% if user.is_authenticated %}
-            <div class="user-info_block" >
-                <div class="user-info_block-first_1">
-                    <div class="avatarka-profile-info">
-                        {% if user.image %}
-                            <img src="{{ user.image.url}}" alt="gg" width="50px"> 
-                        {% else %}
-                            <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
-                        {% endif %}
-                    </div>
-                    <div class = "user-info_block_info">
-                        <span>{{ user.name }}</span>
-                        <span>{{ user.email }}</span>
-                    </div>
-                </div>
-                <div class="user-info_block-first_2">
-                    <ul>
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        <li><a href="">Настройки</a></li>
-                    </ul>      
-                </div>
-                <div class="user-info_block-first_3">
-                    <span><a href="{% url 'logout' %}">Выйти</a></span>
-                </div>                    
-            </div>   
-            {% else %}   
-            
-            
-            {% endif %}  
-        </div> 
-        
-    </header>
-
-    <section class="workpage">
-        {% for Works in Works %}
-                <div class="picture-block">
-                    <img src="{{ Works.photo.url }}" >
-                </div>
-                <div class="information-block">
-                    <h1>{{Works.title}}
-                    {% if liked %}
-                        <label for="work-like_button">
-                        <i class=" workpage_like fas fa-thumbs-up"></i>
-                        <div class="title_like ">
-                            <span>Убрать оценку</span>
-                        </div>
-                        </label>
-                        <form action="{% url 'like_work' Works.pk %}"  method='post' >
-                                {% csrf_token %}
-                                <button type = "submit" id="work-like_button" name = "work_id" value = "{{ Works.id}}" >Like</button>
-                        </form> 
-
-
-                        
-                        
-                    {% else %}
-                        <label class="hh" for="work-like_button">
-                        <i class=" workpage_dislike far fa-thumbs-up"></i>
-                        <div class="title_like">
-                            <span>Оценить</span>
-                        </div>
-                        </label>
-                        <form action="{% url 'like_work' Works.pk %}"  method='post' >
-                                {% csrf_token %}
-                                <button type = "submit" id="work-like_button" name = "work_id" value = "{{ Works.id}}" ></button>
-                        </form> 
-                        
-                    {% endif%}
-                            
-                    </h1>
-                    
-                    <span class="autor_name">{{Works.autor.name}}</span>
-                   
-                    <span class="picture-category">Категория: {{Works.category}}</span>
-                    <hr>
-                    <span class="work-price"> &#8381 {{Works.price}}</span>
-                    <label for="testbuy"><p class="btn-buy" type="submit" value="КУПИТЬ" >КУПИТЬ</p</label>
-                    
-                </div>
-                <div class="discription-block">
-                    <h1>О работе</h1>
-                    <p class="discription">{{Works.description}}</p>
-                </div>
-            </section>
-            
-            
-    
-            <section class="other-work">
-                <div class="other-work_block">
-                    <form method="POST" action="https://yoomoney.ru/quickpay/confirm.xml"> 
-                        <input type="text" name="receiver" value={{Works.autor.bill_number}}>   
-                        <input type="text" name="formcomment" value="{{Works.title}}">
-                        <input type="hidden" name="short-dest" value="">
-                        <input type="hidden" name="label" value="$order_id"> 
-                        <input type="hidden" name="quickpay-form" value="donate">
-                        <input type="hidden" name="targets" value="транзакция {order_id}">
+                        <input type="hidden" name="targets" value="транзакция {{Works.title}}">
                         <input type="text" name="sum" value={{Works.price}} data-type="number">
                         <input type="hidden" name="comment" value="Хотелось бы получить дистанционное управление.">
                         <input type="hidden" name="need-fio" value="true">

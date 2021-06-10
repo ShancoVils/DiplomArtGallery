@@ -49,18 +49,8 @@ window.onload = function Onload_Profile(){
 }
 
 function CreteProject(){
-    document.location.href = "addwork/addwork";   
+    document.location.href = "/addwork/addwork/";   
 }
-
-
-$(document).ready(function(){
-    $( ".autor-item_block" ).hover(function(){ // задаем функцию при наведении курсора на элемент	
-      $( ".autor-item_block" ).css( "background", "green" ) // задаем цвет заднего фона
-      }, function(){ // задаем функцию, которая срабатывает, когда указатель выходит из элемента 	
-      $( ".autor-item_block" ).css( "background", "red" ) // задаем цвет заднего фона
-    });
-});
-
 
 function All_work_profile(){
     
@@ -251,4 +241,94 @@ function left_button_pd(){
         document.getElementById('right_button_label_pd').style.display = ('block');
         
 }
+
+
+
+
+//Аватарка
+
+const alertBox = document.getElementById('alert-box')
+const imageBox = document.getElementById('image-box')
+const imageForm = document.getElementById('image-form')
+const confirmBtn = document.getElementById('confirm-btn')
+const input = document.getElementById('id_file')
+const csrf = document.getElementsByName('csrfmiddlewaretoken')
+var video_el = document.getElementById('upload_img');
+
+video_el.addEventListener('change', ()=>{
+    alertBox.innerHTML = ""
+    confirmBtn.classList.remove('not-visible')
+    const img_data = video_el.files[0]
+    const url = URL.createObjectURL(img_data)
+
+    imageBox.innerHTML = `<img src="${url}" id="image" width="700px" class="imagebbg">`
+    var $image = $('#image')
+    console.log($image)
+    
+
+    $image.cropper({
+    aspectRatio: 9 / 9,
+    crop: function(event) {
+        console.log(event.detail.x);
+        console.log(event.detail.y);
+        console.log(event.detail.width);
+        console.log(event.detail.height);
+        console.log(event.detail.rotate);
+        console.log(event.detail.scaleX);
+        console.log(event.detail.scaleY);
+    }
+})
+
+
+var cropper = $image.data('cropper');
+    confirmBtn.addEventListener('click', ()=>{
+        cropper.getCroppedCanvas().toBlob((blob) => {
+            console.log('confirmed')
+            const fd = new FormData();
+            fd.append('csrfmiddlewaretoken', csrf[0].value)
+            fd.append('image', blob, 'my-image.png');
+
+            $.ajax({
+                type:'POST',
+                url: imageForm.action,
+                enctype: 'multipart/form-data',
+                data: fd,
+                success: function(response){
+                    document.getElementById('jojo').style.display = ('none')
+                },
+                error: function(error){
+                    console.log('error', error)
+                    alertBox.innerHTML = `<div class="alert alert-danger" role="alert">
+                                            Ups...something went wrong
+                                        </div>`
+                },
+                complete:function(){
+                    window.location.reload();
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                
+            })
+        })
+        
+    })
+
+
+
+
+
+
+document.getElementById('jojo').style.display = ('block')
+document.getElementById('jojo').style.pointerEvents = ('auto')
+})
+
+
+function closeModalWin(){
+     document.getElementById('jojo').style.display = ('none')
+}
+
+
+
+
 

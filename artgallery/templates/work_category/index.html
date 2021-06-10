@@ -57,8 +57,8 @@
                 </div>
                 <div class="user-info_block-first_2">
                     <ul>
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        <li><a href="">Настройки</a></li>
+                        <li><a href="{% url 'profile' user.pk   %}">Профиль</a></li>
+                        <li><a href="{% url 'profile_option' user.pk %}">Настройки</a></li>
                     </ul>      
                 </div>
                 <div class="user-info_block-first_3">
@@ -114,7 +114,11 @@
                                                                     <span class="name-hover"> {{Works.autor}}</span>
                                                                 </div>
                                                             </div>
-                                                            <button class="submit-btn">Подписаться</button>
+                                                            {% if user.id == Works.autor_id %}
+                                                                <a class="submit-btn" href="{% url 'profile'  user.pk %}">Перейти</a>
+                                                            {%else%}
+                                                                <a class="submit-btn" href="{% url 'anotherautorpage' Works.autor_id %}">Перейти</a>
+                                                            {%endif%}
                                                         </div>
                                                     </span>
                                                 </i>

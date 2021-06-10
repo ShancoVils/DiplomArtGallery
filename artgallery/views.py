@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.urls.base import reverse
 from django.views import generic
-from .forms import CustomUserCreationForm, RegisterUserForm, LoginUserForm, AddWorkForm, AddRequestForm,ChangeLoginForm
+from .forms import  RegisterUserForm, LoginUserForm, AddWorkForm, AddRequestForm,ChangeLoginForm, ImageForm
 from django.contrib.auth.views import LoginView, LogoutView, AuthenticationForm
 from django.views.generic.edit import CreateView , UpdateView
 from django.contrib import auth
@@ -15,7 +15,10 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.core.files.storage import FileSystemStorage
 from .models import Works, CustomUser, Request
-from django.db.models import Count
+from django.db.models import Count, fields
+from django.contrib.auth import authenticate, login
+
+from artgallery import forms
 
 
 
@@ -113,11 +116,19 @@ class LoginUser( LoginView):
 
  
 
-class RegisterUser( CreateView):
-     form_class = RegisterUserForm
-     template_name = 'registration/login.html'
-     success_url = reverse_lazy('main')
- 
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            new_user = authenticate(email=form.cleaned_data['email'],
+                                    password=form.cleaned_data['password1'],
+                                    )
+            login(request, new_user)
+        
+        return HttpResponseRedirect("/")
 
 
 def logout_user(request):
@@ -127,21 +138,9 @@ def logout_user(request):
 
 def login_or_reg(request):
     if 'password2' in request.POST:
-        return RegisterUser.as_view()(request)  
+        return register(request)  
     return LoginUser.as_view()(request)
 
-
-
-
-
-
-def Profile(request):
-    template = loader.get_template('profiles/index.html')
-    extra_context = {'Works': Works.objects.filter(autor=request.user).order_by('-id'),
-    'Like': request.user.work_one.all()}
-    context = {}
-    rendered_page = template.render(extra_context, request)
-    return HttpResponse(rendered_page)
 
 
 
@@ -156,7 +155,7 @@ def ProfileLike(request):
 
 def Work_category(request):
     template = loader.get_template('work_category/index.html')
-    extra_context = {'Works': Works.objects.all()}
+    extra_context = {'Works': Works.objects.all(), 'CustomUser': CustomUser.objects.all()}
     context = {}
     rendered_page = template.render(extra_context, request)
     return HttpResponse(rendered_page)
@@ -180,7 +179,6 @@ class Contacts(CreateView):
 
 def Workpage(request, works_id):
     template = loader.get_template('workpage/index.html')
-
     stuff = get_object_or_404(Works, id = works_id)
     liked=False
     if stuff.like.filter(id = request.user.id).exists():
@@ -215,11 +213,12 @@ def Profile_option(request):
 
 
 
-class LoginUserChange(UpdateView):
+class LoginUserChange(UpdateView): 
     model = CustomUser
     template_name = 'profile_option/index.html'
-    fields = ['name', 'email']
+    fields = ['name', 'email', 'bill_number', 'background_image']
     success_url = reverse_lazy('main')
+
 
  
 
@@ -264,3 +263,28 @@ def Popular(request):
     context = {}
     rendered_page = template.render(extra_context, request)
     return HttpResponse(rendered_page)
+
+
+def Addavatar(request, pk):
+    if request.method == 'POST':
+        AvatarChandge(request, pk)
+    else:
+        template = loader.get_template('profiles/index.html')
+        extra_context = {'Works': Works.objects.filter(autor=request.user).order_by('-id'),
+        'Like': request.user.work_one.all()}
+        context = {}
+        rendered_page = template.render(extra_context, request)
+        return HttpResponse(rendered_page)
+    template = loader.get_template('profiles/index.html')
+    extra_context = {'Works': Works.objects.filter(autor=request.user).order_by('-id'),
+    'Like': request.user.work_one.all()}
+    context = {}
+    rendered_page = template.render(extra_context, request)
+    return HttpResponse(rendered_page)
+
+
+def AvatarChandge(request, pk):
+    if request.POST:
+        user_edit_form = ImageForm(request.POST,request.FILES, instance=request.user)
+        if user_edit_form.is_valid():
+            user_edit_form.save()

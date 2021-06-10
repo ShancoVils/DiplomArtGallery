@@ -6,11 +6,13 @@
     <link rel="stylesheet" type="text/css" href="{% static '/main/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static '/profiles/style.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
-    <script src= "{% static "main/scripts.js"  %}"></script> 
+    <script src= "{% static "main/scripts.js"  %}" defer></script> 
     <link rel="shortcut icon" type="image/png" href="{% static 'img/logotip.png' %}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.css">
     <title>{{ user.name }}</title>
 </head>
 <body>
@@ -57,8 +59,8 @@
                 </div>
                 <div class="user-info_block-first_2">
                     <ul>
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        <li><a href="">Настройки</a></li>
+                        <li><a href="{% url 'profile' user.pk   %}">Профиль</a></li>
+                        <li><a href="{% url 'profile_option' user.pk %}">Настройки</a></li>
                     </ul>      
                 </div>
                 <div class="user-info_block-first_3">
@@ -73,26 +75,42 @@
         
     </header>
     <section>
-        <div class="profile-video_block">  
-            <img src="{% static "img/wallpaperflare.com_wallpaper.jpg" %}">
+        <div class="profile-background_block">  
+            <img src="{{ user.background_image.url}}" >
         </div>
         <div class="profile-info_block" id="55">
             <ul>
                 <li>
                     <div class="avatarka">
                         {% if user.image %}
-                            <img src="{{ user.image.url}}" alt="gg"> 
+                            <img src="{{ user.image.url}}" > 
                         {% else %}
                             <img src="{% static "img/emptyuserimage.jpg" %}"  width="100px">
                         {% endif %}
                     </div>
-                    <div  class="upload-avatar">
-                        <a class="fa fa-plus" aria-hidden="true"></a>
+
+                    <div id="alert-box"></div>
+                    <form enctype="multipart/form-data" method="POST" id="image-form" action="" >
+                        {% csrf_token %}
+                        <label for="upload_img">
+                            <div class="upload-avatar">
+                                <a class="fa fa-plus" aria-hidden="true" ></a> 
+                            </div>
+                        </label>
+                        <input type="file" name="image" class="form-styling hide_input_image" id="upload_img" > 
+                    </form>                     
+                    <div class="modal_avatar mb-3" id="jojo" >
+                        <div>
+                            <div class="image-box" id="image-box">
+                            </div>
+                            <a href="#closeModalWin" title="Закрыть" class="closeModalWin" onclick="closeModalWin()">X</a>
+                            <button class="btn btn-primary mt-3 not-visible" id="confirm-btn">Подтвердить</button>
+                        </div>
                     </div>
                 </li>
                 <li><span>{{ user.name }}</span></li>
                 <li><span>{{ user.email }}</span></li>
-                <li><button  type="submit" >Редактиовать профиль</button></li>
+                <li><a class="profile_profileopt_btn" href="{% url 'profile_option' user.pk %}">Редактировать профиль</a></li>
                 <li><button type="submit"  onclick = "CreteProject()">Создать проект</button></li>
                 <li><span class="date-registr">Дата регистрации {{ user.date_joined }}</span></li>  
             </ul>           
@@ -101,7 +119,7 @@
     <button  id="All_work_profile" class=" jj profile_butt_works"  type="submit" onclick = "All_work_profile()">ПРОФИЛЬ</button>
     <button id="Like_work_profile" class="profile_butt_works" type="submit" onclick = "Like_work_profile()">ПОНРАВИВШИЕСЯ</button>
     <section class="sectioncommon" id="list_common">
-        <div class="catalog-list">
+        <div class="catalog-list profile_list">
             {% for Works in Works %}
                 <a class="another-profile_item" href="{% url 'workpage' Works.id %}">
                     <div class="item">
@@ -144,7 +162,7 @@
 
 
     <section class="sectionlike" id="list_like">
-        <div class="catalog-list">
+        <div class="catalog-list profile_list">
             {% for Works in Like %}
                 <a class="another-profile_item" href="{% url 'workpage' Works.id %}">
                     <div class="item">
@@ -192,14 +210,18 @@
                                                     <span class="name-hover"> {{Works.autor}}</span>
                                                 </div>
                                             </div>
-                                            <button class="submit-btn">Подписаться</button>
+                                            {% if user.id == Works.autor_id %}
+                                                <button class="submit-btn" href="{% url 'profile'  user.pk %}">Перейти</button>
+                                            {%else%}
+                                                <button class="submit-btn" href="{% url 'anotherautorpage' Works.autor_id %}">Перейти</button>
+                                            {%endif%}
                                         </div>
                                     </span>
-                                    </i>
+
                             </div>
                             <div class="stats">
                                 <div class="likes">
-                                    <i class="far fa-thumbs-up"><span class="count-likes"></span></i>{{ Works.total_likes }}
+                                    <i class="far fa-thumbs-up"><span class="count-likes">{{ Works.total_likes }}</span></i>
                                 </div>
                             </div>
                         </div>
@@ -208,51 +230,6 @@
             {% endfor %}   
         </div>
     </section>
-
-
-
-    {% comment %} <script>
-      $(document).ready(function () {
-          // отслеживаем событие отправки формы
-          $('#nolike').click(function () {
-              // создаем AJAX-вызов
-              $.ajax({
-                  data: "{{ Works }}",
-                  url: "{% url 'profile' %}",
-                  type: 'get',
-                  // если успешно, то
-                   success: function(data) {
-                        alert('{{ Works }}');
-                    },
-                    failure: function(data) { 
-                        alert('Got an error dude');
-                    }
-                });
-          });
-
-
-
-          $('#like').click(function () {
-              // создаем AJAX-вызов
-              $.ajax({
-                  data: "{{ Works }}",
-                  url: "{% url 'profilelike' %}",
-                  type: 'get',
-                  // если успешно, то
-                   success: function(data) {
-                        alert('{{ Works }}');
-                    },
-                    failure: function(data) { 
-                        alert('Got an error dude');
-                    }
-                });
-          });
-      })
-    </script> {% endcomment %}
-
-
- 
-
     
 </body>
 </html>

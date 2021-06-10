@@ -2,10 +2,9 @@ from . import views
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 from .views import LoginUser
-from .views import RegisterUser
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import WorkCreate, Contacts, Workpage, Autorpage, LoginUserChange, LikeView, Popular, ProfileLike, Work_category
+from .views import WorkCreate, Contacts, Workpage, Autorpage, LoginUserChange, LikeView, Popular, ProfileLike, Work_category, Addavatar 
 
 # from .views import SignUpView
  
@@ -26,7 +25,7 @@ urlpatterns = [
     path('autors/autors.html', views.AutorsPage, name='autors'),
 
     #Добавить работу
-    path('profiles/index/addwork/addwork/', WorkCreate.as_view(), name='testingcrud'),
+    path('addwork/addwork/', WorkCreate.as_view(), name='testingcrud'),
 
     #Регистрация/авторизация
     path('registration/login/', views.login_or_reg, name='login'),
@@ -34,8 +33,16 @@ urlpatterns = [
     #Регистрация/авторизация
     path('logout/', views.logout_user, name='logout'),
 
-    #Профиль
-    path('profiles/index/', views.Profile, name='profile'),
+
+    #Профиль аватарка
+    path('profiles/<int:pk>/', Addavatar, name='profile'),
+
+    # #Профиль
+    # path('profiles/<int:pk>/', Profile, name='profile'),
+
+
+
+    
     
     #ПрофильЛайк
     path('profiles/index/', ProfileLike, name='profilelike'),
@@ -55,6 +62,9 @@ urlpatterns = [
 
     #Страница авторов
     path('autor/<int:customuser_id>/', Autorpage, name='anotherautorpage'),
+
+   
+   
 
 
     #Настройки профиля

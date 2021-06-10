@@ -58,8 +58,8 @@
                 </div>
                 <div class="user-info_block-first_2">
                     <ul>
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        <li><a href="">Настройки</a></li>
+                        <li><a href="{% url 'profile' user.pk   %}">Профиль</a></li>
+                        <li><a href="{% url 'profile_option' user.pk %}">Настройки</a></li>
                     </ul>      
                 </div>
                 <div class="user-info_block-first_3">
@@ -79,7 +79,7 @@
         <div class="autors-list">
            {% for CustomUser in CustomUser %}
            {% if user.id == CustomUser.id %}
-                 <a href="{% url 'profile' %}">
+                 <a href="{% url 'profile'  user.pk    %}">
            {%else%}
                 <a href="{% url 'anotherautorpage' CustomUser.id %}">
            {%endif%}
@@ -96,7 +96,6 @@
                         <div class="autor-inf_hide">
                             {% for Works in Works %}
                                 {% if Works.autor_id == CustomUser.id %}
-                                        <span class="autor-works">Нравится: {{  Works.likesgs }}</span>
                                     <span class="autor-works">Работы: {{ Works.total }}</span>
                                     <button class="submit-btn">Перейти</button>
                                 {%endif%}

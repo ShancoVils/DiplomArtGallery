@@ -57,8 +57,8 @@
                 </div>
                 <div class="user-info_block-first_2">
                     <ul>
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        <li><a href="">Настройки</a></li>
+                        <li><a href="{% url 'profile' user.pk   %}">Профиль</a></li>
+                        <li><a href="{% url 'profile_option' user.pk %}">Настройки</a></li>
                     </ul>      
                 </div>
                 <div class="user-info_block-first_3">
@@ -76,28 +76,28 @@
         <div class="top-info">
             <h1>Учетная запись</h1>
         </div>
-        <hr>
-        <div class="option field_login">
-            <form class="login-change" method="POST" >
+        <hr>       
+        <form enctype="multipart/form-data" class="login-change" method="POST"  >
+            <div class="option field_login">
                 {% csrf_token %}
                 <label for="fullname">Имя</label>
                 <input class="form-styling" type="text" name="name" placeholder="" value="{{ user.name }}">
                 <label for="username">Email</label>
                 <input type="email" name="email" class="form-styling" value="{{ user.email }}"> 
+            </div>
+            <hr>
+            <div class="option field_bill">
+                <label class="bill_label" for="fullname" >Номер счета</label>
+                <input class="numberschet form-styling" type="text" name="bill_number" placeholder="" value="{{ user.bill_number }}">
+            </div>
+            <hr>
+            <div class="option field_bill">
+                <label>Фон профиля</label>
+                <input  type="file" name="background_image" id="addImages">
                 <input class="btn-signin" type="submit" value="СОХРАНИТЬ" >
-            </form>
-        </div>
+            </div>
+        </form>
         <hr>
-         <div class="option field_login">
-            <form class="login-change" method="POST" >
-                {% csrf_token %}
-                <label for="fullname">Номер счета</label>
-                <input class="numberschet form-styling" type="text" name="name" placeholder="" value="">
-                <input class="btn-signin" type="submit" value="СОХРАНИТЬ" >
-            </form>
-
-            <div class="gghh">adada</div>
-        </div>
         <!-- <div class="option field_password">
             <form class="password-change" method="POST" >
                 {% csrf_token %}
@@ -125,143 +125,3 @@
     
 </body>
 </html>
-
-
-
-
-
-
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static '/main/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static '/profile_option/style.css' %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
-    <script src= "{% static "main/scripts.js"  %}"></script> 
-    <link rel="shortcut icon" type="image/png" href="{% static 'img/logotip.png' %}"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
-    <title>Каталог</title>
-</head>
-<body>
-    <header id="5">
-        <div class="left-part-menu">
-            <a href="/" class="full_logitip"><img class="logotip"  src="{% static "img/logotip.png" %}">
-            <span>ARTGALLERY</span></a>
-            <ul>
-                <a href="{% url 'autors' %}">Авторы</a>
-                <a href="{% url 'work_category' %}">Работы</a>
-                <a href="{% url 'popular' %}">Популярное</a>
-                <a href="{% url 'contacts' %}">Контакты</a>  
-         </ul>       
-        </div>
-
-        <div class="right-part-menu">
-            <div class="user-info">
-                    {% if user.is_authenticated %}
-                        <div class="avatarka_header" >
-                            {% if user.image %}
-                                <img src="{{ user.image.url}}" alt="gg" width="50px"> 
-                            {% else %}
-                                <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
-                            {% endif %}
-                        </div>
-                    {% else %}
-                        <button  type="submit" onclick="LoginButt()">ВОЙТИ</button>
-                    {% endif %}    
-            </div>  
-            {% if user.is_authenticated %}
-            <div class="user-info_block" >
-                <div class="user-info_block-first_1">
-                    <div class="avatarka-profile-info">
-                        {% if user.image %}
-                            <img src="{{ user.image.url}}" alt="gg" width="50px"> 
-                        {% else %}
-                            <img src="{% static "img/emptyuserimage.jpg" %}"  class="usericon">
-                        {% endif %}
-                    </div>
-                    <div class = "user-info_block_info">
-                        <span>{{ user.name }}</span>
-                        <span>{{ user.email }}</span>
-                    </div>
-                </div>
-                <div class="user-info_block-first_2">
-                    <ul>
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        <li><a href="">Настройки</a></li>
-                    </ul>      
-                </div>
-                <div class="user-info_block-first_3">
-                    <span><a href="{% url 'logout' %}">Выйти</a></span>
-                </div>                    
-            </div>   
-            {% else %}   
-            
-            
-            {% endif %}  
-        </div> 
-        
-    </header>
-    <section >
-        <div class="top-info">
-            <h1>Учетная запись</h1>
-        </div>
-        <hr>
-        <div class="option field_login">
-            <form class="login-change" method="POST" >
-                {% csrf_token %}
-                <label for="fullname">Имя</label>
-                <input class="form-styling" type="text" name="name" placeholder="" value="{{ user.name }}">
-                <label for="username">Email</label>
-                <input type="email" name="email" class="form-styling" value="{{ user.email }}"> 
-                <input class="btn-signin" type="submit" value="СОХРАНИТЬ" >
-            </form>
-        </div>
-        <hr>
-         <div class="option field_login">
-            <form class="login-change" method="POST" >
-                {% csrf_token %}
-                <label for="fullname">Номер счета</label>
-                <input class="numberschet form-styling" type="text" name="name" placeholder="" value="">
-                <input class="btn-signin" type="submit" value="СОХРАНИТЬ" >
-            </form>
-
-            <div class="gghh">adada</div>
-        </div>
-        <!-- <div class="option field_password">
-            <form class="password-change" method="POST" >
-                {% csrf_token %}
-                <label for="password">Старый пароль</label>
-                <input type="password" name="oldpassword" class="form-styling">
-                <label for="password">Новый пароль</label>
-                <input type="password" name="newpassword" class="form-styling">
-                <label for="password">Повторите новый пароль</label>
-                <input type="password" name="newpassword" class="form-styling">
-                <input class="btn-signin" type="submit" value="СОХРАНИТЬ" >
-            </form>
-        </div> -->
-            
-
-        <div class="option-field_salesdata">
-
-        </div>
-
-        </div>
-
-
-    </section>
-    
-
-    
-</body>
-</html>
-
-
-
-
-
-
-            

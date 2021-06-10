@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <title>Авторизация</title>
 </head>
@@ -58,8 +58,8 @@
                 </div>
                 <div class="user-info_block-first_2">
                     <ul>
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        <li><a href="">Настройки</a></li>
+                        <li><a href="{% url 'profile' user.pk   %}">Профиль</a></li>
+                        <li><a href="{% url 'profile_option' user.pk %}">Настройки</a></li>
                     </ul>      
                 </div>
                 <div class="user-info_block-first_3">
@@ -80,7 +80,7 @@
             <div class="work-info">
                 <form  enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
-                    <label for="title">НАЗВАНИЕ</label>
+                    <label class="red" for="title">НАЗВАНИЕ</label>
                     <input type="text" name="title" class="form-styling">
                     <label for="category">КАТЕГОРИЯ</label>
                     <select name="category">
@@ -105,7 +105,7 @@
             </div>
             <div class="image-window">
                     <ul id="uploadImagesList">
-                        <li class="item template">
+                        <li class=" template">
                             <span class="img-wrap">
                                 <img class="image-position" src="image.jpg" alt="">
                             </span>
@@ -118,9 +118,9 @@
     <script>
         jQuery(document).ready(function ($) {
             var imagesList = $('#uploadImagesList');
-            var itemPreviewTemplate = imagesList.find('.item.template').clone();
+            var itemPreviewTemplate = imagesList.find('.template').clone();
             itemPreviewTemplate.removeClass('template');
-            imagesList.find('.item.template').remove();
+            imagesList.find('.template').remove();
             $('#addImages').on('change', function () {
                 var files = this.files;  
                 for (var i = 0; i < files.length; i++) {

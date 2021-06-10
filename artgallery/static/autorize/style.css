@@ -48,7 +48,7 @@ html, body * { box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
 .frame {
   margin-left: 60%;
   position: relative;
-  height: 575px;
+  height: 535px;
   width: 430px;
   background: url(/static/img/bgLogin.jpg) no-repeat center top/cover;
   margin-right: auto;
@@ -490,3 +490,19 @@ label {
 }
 
 
+.help_text{
+  font-family: 'Open Sans';
+  display: none;
+  margin-bottom: 10px;
+}
+
+.help_text li{
+  text-transform:none;
+  font-size: 10pt;
+  color: rgba(255,255,255,.7);
+}
+
+
+.hide_password:focus + .help_text {
+  display: block;
+}

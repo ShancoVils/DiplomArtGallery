@@ -57,8 +57,8 @@
                 </div>
                 <div class="user-info_block-first_2">
                     <ul>
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        <li><a href="">Настройки</a></li>
+                        <li><a href="{% url 'profile' user.pk   %}">Профиль</a></li>
+                        <li><a href="{% url 'profile_option' user.pk %}">Настройки</a></li>
                     </ul>      
                 </div>
                 <div class="user-info_block-first_3">
@@ -74,9 +74,15 @@
     </header>
     <section>
         {% for CustomUser in CustomUser %}
-            <div class="profile-video_block">     
-                <img src="{% static "img/minimalism.jpg" %}">
-            </div>
+            {% if CustomUser.background_image %}
+                <div class="profile-background_block">  
+                    <img src="{{ CustomUser.background_image.url}}" alt="" >
+                </div>
+            {% else %}
+                <div class="profile-background_block-none">  
+                    <img   src="{% static "img/logotip.png" %}">
+                </div>
+            {% endif %}
             <div class="profile-info_block" id="55">
                 <ul>
                     <li>
@@ -93,7 +99,6 @@
                      {% for WorksCount in WorksCount %}
                         {% if WorksCount.autor_id == CustomUser.id %}
                             <li><span class="autor-works">Работы: {{ WorksCount.total }}</span></li>
-                            <li><button class="submit-btn">Подписаться</button></li>
                         {%endif%}
                     {% endfor %} 
                 </ul>           
@@ -101,9 +106,9 @@
         {% endfor %}   
     </section>
     <section class="sectiontwo">
-        <div class="catalog-list">
+        <div class="catalog-list profile_list">
             {% for Works in Works %}
-                <a class="another-profile_item" href="{% url 'workpage' Works.id %}">
+                <a class="another-profile_item"  href="{% url 'workpage' Works.id %}">
                     <div class="item">
                         {% if Works.category == "Photoshop art" %}
                             <div class="category-icon_psart">
@@ -131,10 +136,15 @@
                             </div>
                         {% endif %}
                         <span class="hide_title"> {{Works.title}}</span>
+                        
                         <img src="{{ Works.photo.url }}"  loading="lazy">
                         <div class="item-info">
                             <div class="username">
-                                <i class="fas fa-user">
+                                    {% if Works.autor.image %}
+                                        <img class= "work-autor-avatar" src="{{ Works.autor.image.url}}" alt="gg"> 
+                                    {% else %}
+                                        <img src="{% static "img/emptyuserimage.jpg" %}" class= "work-autor-avatar" >
+                                    {% endif %}
                                     <span class="name">
                                         {{Works.autor.name}}
                                         <div class="hover-profile">
@@ -142,17 +152,16 @@
                                                 <i class="fas fa-user"></i>
                                                 <div class="username_name-city">
                                                     <span class="name-hover"> {{Works.autor}}</span>
-                                                    <span class="city"> Country</span>
                                                 </div>
                                             </div>
                                             <button class="submit-btn">Подписаться</button>
                                         </div>
                                     </span>
-                                </i>
+                                    </i>
                             </div>
                             <div class="stats">
                                 <div class="likes">
-                                    <i class="far fa-thumbs-up"><span class="count-likes"></span></i>
+                                    <i class="far fa-thumbs-up"><span class="count-likes"></span></i>{{ Works.total_likes }}
                                 </div>
                             </div>
                         </div>
