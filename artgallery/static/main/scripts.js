@@ -1,4 +1,9 @@
 
+//Запрос к хероку
+var http = require("http");
+setInterval(function() {
+    http.get("http://artgallerydiplom.herokuapp.com");
+}, 300000); 
 
 let slider_img_width_landing = 354;
 let position_slider_landing = 0;
