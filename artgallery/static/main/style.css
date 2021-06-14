@@ -634,7 +634,7 @@ header button:hover{
   margin-bottom: 20px;
 }
 
-.contacts_form label, input, textarea{
+.contacts_form  input, textarea{
   background: rgb(233, 226, 226);
   border: none;
   border-bottom: 1px solid red;
