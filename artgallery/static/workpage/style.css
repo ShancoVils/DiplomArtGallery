@@ -187,3 +187,27 @@
     width: 900px;
 }
 
+
+@media (max-width:706px){
+    .workpage{
+        flex-direction: column;
+    }
+    
+    .picture-block{
+        width: 100%;
+    }
+
+    .information-block{
+        width: 100%;
+        height: 40%;
+    }
+    
+    .picture-resolution{
+     margin-top: 0;
+    }
+
+    .autor_name{
+        margin-bottom: 0;
+    }
+}
+  
