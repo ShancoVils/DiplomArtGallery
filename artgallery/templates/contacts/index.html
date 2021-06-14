@@ -74,44 +74,31 @@
         </div> 
         
     </header>
-    <section  class="contact-container">
-        
-        
+    <section  class="contact-container">     
         <div class="contact">
-            <div class="contacts_info">
-            <h1 class="head-title">Контакты</h1>
+        
+            {% comment %} <h1 class="head-title">Контакты</h1>
                 <p>Данный сайт является дипломным проектом студента ТГКСТ Бондарева Александра Игоревича. Не является комерческим продуктом, и не направлен на получение прибыли .</p>
                 <span>Email</span>
                 <a href="">pernens@mail.ru</a>
                 <br>
                 <span>Телефон</span>
                 <a href="">8(953)443-54-36</a>
-            </div>
+            </div> {% endcomment %}
             <div class="contacts_form">
                 <form   method='POST' >
                     {% csrf_token %}
-                    <div class="contact_form_top">
-                        <div class="contact_form_item ">
-                            <label for="fullname">Имя</label>
-                            <input class="form-input" type="text" name="name" placeholder=""/> 
-                        </div>
-                        <div class="contact_form_item">
-                            <label for="username">Email</label>
-                            <input type="email" name="email" class="form-input" >
-                        </div>
-                    </div>
-                    <div class="contact_form_item">
-                        <label for="message" >Сообщение</label>
-                        <textarea placeholder="Поле доступно только для чтения" name="message"  cols="10" rows="5" class="form-input" > </textarea>
-                    </div>
+                    <h1>Отправить сообщение</h1>
+                    <label for="fullname">Имя</label><br>
+                    <input class="form-input" type="text" name="name" placeholder=""/> <br>
+                    <label for="username">Email</label><br>
+                    <input type="email" name="email" class="form-input" ><br>
+                    <label for="message" >Сообщение</label><br>
+                    <textarea placeholder="Поле доступно только для чтения" name="message"  cols="10" rows="5" class="form-input" > </textarea><br>
                     <input class="btn-send" type="submit" value="ОТПРВИТЬ" >
                 </form>
-                
             </div>
         </div>
-        
-        
-
    </section>
     
 </body>
