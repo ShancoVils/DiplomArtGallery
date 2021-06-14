@@ -376,3 +376,41 @@
 
   /* Задний фон профиля */
 
+
+
+
+
+
+
+@media (max-width:706px){
+    .catalog-list{
+      justify-content: center;
+      margin-left: 5%;
+    }
+
+    .profile_butt_works{
+        margin-left: 50%;
+    }
+
+    .profile_profileopt_btn{
+        font-size: 9pt;
+        margin: 0;
+    }
+    .profile-info_block button{
+        font-size: 9pt;
+        width: 155px;
+        height: 30px;
+        margin: 0;
+    }
+
+    .upload-avatar{
+        margin-left: 50%;
+    }
+
+    .profile-background_block{
+        width: 100%;
+    }
+}
+  
+
+
