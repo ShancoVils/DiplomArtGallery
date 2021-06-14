@@ -12,11 +12,11 @@
 /* Header */
 
 header{
-  
   border-bottom: 1px solid #e6e6e6;
   top: 0;
   padding: 10px;
   display: flex;
+  justify-content: space-between;
   background: #ffffff;
   width: 100%;
   position: fixed;
@@ -25,26 +25,23 @@ header{
 }
 
 header .left-part-menu{
-  width: 70%;
   display: flex;
   align-items: center;
   padding-left: 20px;
+  flex-wrap: nowrap;
+
 }
 
 .left-part-menu ul a{
   transition: 0.1s;
   padding: 17px;
+
 }
 
 .left-part-menu ul a:hover{
   transition: 0.1s;
-  border-bottom: 4px solid  #c70202;
-}
 
-.left-part-menu span{
-  font-family: 'Playfair Display', serif !important;
 }
-
 
 
 header span{
@@ -63,7 +60,6 @@ header .icon{
 
 
 .right-part-menu{
-  width: 30%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -317,6 +313,7 @@ header button:hover{
 }
 
 .item {
+  margin: 2%;
   position: relative;
   width: 320px;
   height: 250px;
@@ -325,9 +322,6 @@ header button:hover{
 }
 
 
-.item:first-of-type{
-  margin-left: -25px !important;
-}
 
 
 
@@ -423,11 +417,9 @@ header button:hover{
 }
 
 .catalog-list {
-  
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 25px 10px 0;
+  justify-content: space-between;
 }
 
 .head-title {
@@ -946,3 +938,42 @@ header button:hover{
   opacity: 1;
   transition: 0.4s;
 }
+
+
+
+/* Адаптивность */
+
+@media (max-width:800px){
+  .left-part-menu span{
+    display: none;
+  }
+  
+}
+
+
+@media (max-width:706px){
+  .catalog-list{
+    justify-content: center;
+  }
+
+  .head-title{
+    text-align: center;
+  }
+
+  .category-menu__li a{
+    font-size: 6pt;
+  }
+
+  .category-menu__li {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .category-menu__inner{
+    justify-content: space-evenly;
+
+
+  }
+  
+}
+
