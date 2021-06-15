@@ -21,7 +21,7 @@ header{
   width: 100%;
   position: fixed;
   z-index: 1000;
-  height: 40px;
+  height: 5%;
 }
 
 header .left-part-menu{
@@ -33,13 +33,14 @@ header .left-part-menu{
 }
 
 .left-part-menu ul a{
-  transition: 0.1s;
+  transition: 0.5s;
   padding: 17px;
 
 }
 
 .left-part-menu ul a:hover{
   transition: 0.1s;
+  border-bottom: 3px solid #ca1717; ;
 
 }
 
@@ -166,9 +167,8 @@ header button{
 }
 
 header button:hover{
-  background: #920909;
+  background: #740202;
   transition: 500ms;
-
 }
 
 
@@ -599,29 +599,63 @@ header button:hover{
 /* Контакты*/
 
 .contact-container{
-  padding-top: 50px;
+  display: flex;
+  margin-top: 4%;
+  height: 100vh;
+}
+
+.contact-info{ 
+  height: 100%;
+  width: 50%;
+  
+}
+
+.contact-info_cont{
   width: 90%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 
 }
 
-.head-title{
-  margin-bottom: 20px;
+.contact-info_cont h1{
+  margin-bottom: 10px;
+  width: 20%;
+  color: black ;
+  font-size: 35pt;
+  margin-top: 50px;
+  border-bottom: 3px solid rgb(180, 0, 0);
+}
+
+.contact-info_cont p{
+
+  font-size: 1.4em;
+}
+
+.contact-info_cont span{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 1.4em;
 }
 
 
 .contact{
-  background: rgb(233, 226, 226);
-  height: 550px;
-  width: 35%;
+  background: linear-gradient(90deg,   rgb(104, 0, 0), #d60000);
+  height: 100%;
+  width: 50%;
   display: flex;
-  margin: 0 auto;
   justify-content: space-around;
-  margin-top: 20px;
+  color: rgb(241, 217, 217) !important;
+}
+
+.contacts_form{
+  width: 90%;
+  margin:  0 auto;
 }
 
 .contact h1{
-  font-size: 25pt;
+
+  font-size: 35pt;
   margin-top: 50px;
   margin-bottom: 50px;
 }
@@ -634,15 +668,20 @@ header button:hover{
   margin-bottom: 20px;
 }
 
-.contacts_form  input, textarea{
-  background: rgb(233, 226, 226);
+.contacts_form label, input, textarea{
+
+  background: none;
   border: none;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid rgb(255, 255, 255);
   resize: none;
   font-weight: 500;
   font-size: 18pt;
   width: 100%;
-  margin: 0 auto;
+}
+
+.contacts_form label{
+  border: none;
+
 }
 
 
@@ -656,35 +695,48 @@ header button:hover{
 }
 
 .btn-send{
-  margin-top: 20px;
-  font-weight: 500;
-  font-size: 16px;
-  width: 150px;
+  margin-top: 10%;
+  font-size: 20px;
+  width: 40%;
   height: 40px;
-  background: #c70202;
+  background: #ffeeee;
   border: none;
   outline: none;
-  color: #ffffff;
+  color: #8d0000;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .btn-send:hover{
-  background: #a80606;
-  transition: 0.3s;
+  transition: 0.5s;
 }
 
 
 
-@media ( max-width:900px) {
-  .contact{
-    display: block;
+@media ( max-width:600px) {
+  .contact-container{
+    flex-direction: column;
   }
+
+  .contact{
+    width: 100%;
+  }
+
+  .contact-info{
+    width: 100%;
+  }
+
+  .contacts_form{
+    width: 60%;
+  }
+
 }
 
 
 
 /* Контакты*/
+
+
 
 
 
@@ -946,6 +998,12 @@ header button:hover{
 
 
 @media (max-width:706px){
+
+  .left-part-menu ul a{
+    transition: 0.5s;
+    padding: 5px;
+  
+  }
   .catalog-list{
     justify-content: center;
   }
@@ -955,19 +1013,23 @@ header button:hover{
   }
 
   .category-menu__li a{
-    font-size: 6pt;
+    font-size: 8pt;
   }
 
   .category-menu__li {
-    margin: 0px;
-    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
   }
 
   .category-menu__inner{
     justify-content: space-evenly;
+  }
 
-
+  .category-menu__li:not(:first-child){
+    margin-left: 5px;
   }
   
+  
 }
-
