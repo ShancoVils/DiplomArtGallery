@@ -29,19 +29,16 @@ header .left-part-menu{
   align-items: center;
   padding-left: 20px;
   flex-wrap: nowrap;
-
 }
 
 .left-part-menu ul a{
   transition: 0.5s;
   padding: 17px;
-
 }
 
 .left-part-menu ul a:hover{
   transition: 0.1s;
   border-bottom: 3px solid #ca1717; ;
-
 }
 
 
