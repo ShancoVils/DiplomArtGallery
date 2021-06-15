@@ -75,17 +75,8 @@
         </div> 
         
     </header>
-    <section  class="contact-container">     
-        <div class="contact">
-        
-            {% comment %} <h1 class="head-title">Контакты</h1>
-                <p>Данный сайт является дипломным проектом студента ТГКСТ Бондарева Александра Игоревича. Не является комерческим продуктом, и не направлен на получение прибыли .</p>
-                <span>Email</span>
-                <a href="">pernens@mail.ru</a>
-                <br>
-                <span>Телефон</span>
-                <a href="">8(953)443-54-36</a>
-            </div> {% endcomment %}
+     <section  class="contact-container">     
+        <div class="contact"> 
             <div class="contacts_form">
                 <form   method='POST' >
                     {% csrf_token %}
@@ -99,6 +90,24 @@
                     <input class="btn-send" type="submit" value="ОТПРВИТЬ" >
                 </form>
             </div>
+        </div>
+        <div class="contact-info"> 
+            <div class="contact-info_cont">
+                <h1>Контакты</h1>
+                <p>Данный сайт является дипломным проектом студента ТГКСТ Бондарева Александра Игоревича. Не является комерческим продуктом, и не направлен на получение прибыли . </p>
+                <span>
+                    <i class="fas fa-map-marker-alt"></i>
+                    г. Тула проспект Ленина 43
+                </span>
+                <span>
+                    <i class="fas fa-phone"></i>
+                    +7 (920)-742-41-71
+                </span>
+                <span>
+                    <i class="fas fa-at"></i>
+                pernens@mail.ru
+                </span>
+            </div> 
         </div>
    </section>
     
