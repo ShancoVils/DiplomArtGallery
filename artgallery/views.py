@@ -130,9 +130,7 @@ def register(request):
         else:
             form = RegisterUserForm()
 
-
-
-   return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/')
 
 
 
