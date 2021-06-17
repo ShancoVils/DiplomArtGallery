@@ -131,7 +131,9 @@ def register(request):
             form = RegisterUserForm()
 
 
-    return render(request, 'registration/login.html', {'form': form})
+
+   return HttpResponseRedirect('/')
+
 
 
 
