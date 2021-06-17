@@ -8,19 +8,21 @@ from django.template.defaultfilters import slugify
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_('email address'), unique=True)
-    name = models.CharField(max_length=20)
+    email = models.EmailField(_('email address'), unique=True, error_messages={'required': 'Почта не указана'}) 
+    name = models.CharField(max_length=20, error_messages={'required': 'Имя не указано'})
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='profile_image', blank=True)
     background_image = models.ImageField(upload_to = 'background-user_image', blank=True)
-    bill_number = models.IntegerField(max_length=16, null=True)
+    bill_number = models.IntegerField(max_length=16, null=True, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
     def __str__(self):
         return self.email
+
+    
 
 
 class Works(models.Model):

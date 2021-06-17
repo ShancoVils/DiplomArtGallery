@@ -55,10 +55,9 @@
 .profile-info_block{
     z-index: 9999;
     display: flex;
-    flex-direction: column;
     align-items: center;
     transition: 3s ease-out;
-    position: fixed !important;
+    position: fixed;
     background: rgb(255, 255, 255);
     margin-left: 5%;
     height: 400px;
@@ -84,7 +83,6 @@
 }
 
 .profile-info_block img{
-
     justify-content: center;
     width: 100px;
 
@@ -234,8 +232,6 @@
 }
 
 .sectionlike{
-    justify-content: space-between;
-    width: 98%;
     margin: 0 auto;
 }
 
@@ -349,7 +345,6 @@
 
 .profile_list{
     margin-left: 35%;
-    width: 800px;
 }
 
 .profile_profileopt_btn{
@@ -371,8 +366,110 @@
     transition: 0.3s;
     background: #880000;
 }
+
+
+.profile-background_block{
+    width: 100%;
+}
+
+
+@media (max-width:1060px){
+
+    .profile_butt_works{
+        margin-left: 50%;
+    }
+
+    .profile_profileopt_btn{
+        font-size: 9pt;
+        margin: 0;
+    }
+    .profile-info_block button{
+        font-size: 9pt;
+        width: 155px;
+        height: 30px;
+        margin: 0;
+    }
+
+    .upload-avatar{
+        margin-left: 50%;
+    }
+
+}
   
 
 
-  /* Задний фон профиля */
 
+@media (max-width:720px){
+    .profile-info_block{
+        position: absolute;
+        margin-top: -35%;
+        background: none;
+        height: 10%;
+        box-shadow: none;
+        z-index: 10;
+
+    }
+
+    .profile-info_block button{
+        background: #ffffff;
+        color: rgb(109, 0, 0);
+
+    }
+
+
+    .profile-info_block span{
+        display: none;
+    }
+
+    .profile_profileopt_btn{
+        background: #ffffff;
+        color: rgb(109, 0, 0);
+    }
+
+    .profile_profileopt_btn button:hover{
+        color: white;
+    }
+    .profile_profileopt_btn:hover{
+        color: white;
+    }
+
+    .works-type_button{
+        
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        width: 70%;
+        margin-top: 5px;
+    }
+
+    .works-type_button button{
+        
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin: 0 auto;
+    }
+
+    .profile_list{
+        width: 70%;
+        margin: 0 auto;
+        justify-content: space-around;
+    }
+
+}
+
+@media (max-width:320px){
+
+    .profile-info_block{
+        margin: 0 auto;
+        margin-top: -60%;
+        position: absolute;
+        background: none;
+        height: 10%;
+        box-shadow: none;
+        z-index: 10;
+
+    }
+
+
+    
+  }

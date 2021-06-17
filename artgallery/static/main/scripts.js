@@ -1,3 +1,9 @@
+//Запрос к хероку
+
+
+
+let isMenuShow;
+isMenuShow  = true;
 
 
 let slider_img_width_landing = 354;
@@ -293,14 +299,11 @@ var cropper = $image.data('cropper');
                 url: imageForm.action,
                 enctype: 'multipart/form-data',
                 data: fd,
-                success: function(response){
-                    document.getElementById('jojo').style.display = ('none')
+                success: function(){
+                    console.log('збс', success)
                 },
                 error: function(error){
                     console.log('error', error)
-                    alertBox.innerHTML = `<div class="alert alert-danger" role="alert">
-                                            Ups...something went wrong
-                                        </div>`
                 },
                 complete:function(){
                     window.location.reload();
@@ -314,11 +317,6 @@ var cropper = $image.data('cropper');
         
     })
 
-
-
-
-
-
 document.getElementById('jojo').style.display = ('block')
 document.getElementById('jojo').style.pointerEvents = ('auto')
 })
@@ -331,4 +329,18 @@ function closeModalWin(){
 
 
 
+
+function adaptiveFunction() {
+    if (isMenuShow )
+{
+    document.getElementById('jet').style.display = ('flex')
+    isMenuShow  = false;
+}
+else
+{
+    document.getElementById('jet').style.display = ('none')
+    
+isMenuShow  = true;
+}
+};
 

@@ -118,3 +118,10 @@ section{
 }
 
 
+@media (max-width:706px){
+    .autors-list{
+        justify-content: center;
+    }
+    
+  }
+  

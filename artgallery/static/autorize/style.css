@@ -1,4 +1,6 @@
 
+
+
 html, body * { box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
 
 *{
@@ -9,6 +11,7 @@ html, body * { box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
   
   background: url(/static/img/login_background.jpg) no-repeat center top/cover;
   height: 100%;
+  width: 100%;
 
 }
 
@@ -505,4 +508,10 @@ label {
 
 .hide_password:focus + .help_text {
   display: block;
+}
+
+
+.form-signin_error{
+  text-align: center;
+  color:white;
 }

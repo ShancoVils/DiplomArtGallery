@@ -17,12 +17,13 @@
         <div class="left-part-menu">
             <a href="/" class="full_logitip"><img class="logotip"  src="{% static "img/logotip.png" %}">
             <span>ARTGALLERY</span></a>
-            <ul>
-                <a href="{% url 'autors' %}">Авторы</a>
-                <a href="{% url 'work_category' %}">Работы</a>
-                <a href="{% url 'popular' %}">Популярное</a>
-                <a href="{% url 'contacts' %}">Контакты</a>  
-         </ul>       
+            <a onclick="adaptiveFunction()" class="mobile-menu_hide">МЕНЮ</a>
+            <ul id="jet">
+                <a class="mobile-menu" href="{% url 'autors' %}">Авторы</a>
+                <a class="mobile-menu" href="{% url 'work_category' %}">Работы</a>
+                <a class="mobile-menu" href="{% url 'popular' %}">Популярное</a>
+                <a class="mobile-menu" href="{% url 'contacts' %}">Контакты</a>  
+            </ul>       
         </div>
 
         <div class="right-part-menu">

@@ -1,6 +1,6 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, request
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -127,8 +127,14 @@ def register(request):
                                     password=form.cleaned_data['password1'],
                                     )
             login(request, new_user)
-        
-        return HttpResponseRedirect("/")
+        else:
+            form = RegisterUserForm()
+
+
+    return render(request, 'registration/login.html', {'form': form})
+
+
+
 
 
 def logout_user(request):
@@ -138,7 +144,7 @@ def logout_user(request):
 
 def login_or_reg(request):
     if 'password2' in request.POST:
-        return register(request)  
+        return register(request)
     return LoginUser.as_view()(request)
 
 
@@ -146,7 +152,7 @@ def login_or_reg(request):
 
 def ProfileLike(request):
     template = loader.get_template('profiles/index.html')
-    extra_context = {'Works': request.user.work_one.all()}
+    extra_context = {'Works': request.user.work_one.all().order_by('-id')}
     context = {}
     rendered_page = template.render(extra_context, request)
     return HttpResponse(rendered_page)
@@ -189,6 +195,7 @@ def Workpage(request, works_id):
     extra_context["liked"] = liked
     rendered_page = template.render(extra_context, request)
     return HttpResponse(rendered_page)
+    
 
 
 def Autorpage(request, customuser_id):

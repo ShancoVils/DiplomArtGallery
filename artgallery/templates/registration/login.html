@@ -16,12 +16,8 @@
   <div class = "mainbackgroundcolor">
     <div class="container">
       <div class = "logo">
-      <img src="{% static "img/logotip.png" %}"> 
-       {% if user.is_authenticated %}
-                     <span> {{ user.email }}</span>
-                {% else %}
-                    <span> ARTGALLERY</span>
-                {% endif %}    
+        <img src="{% static "img/logotip.png" %}"> 
+        <span> ARTGALLERY</span>
       </div>
       <div class="frame">
       <div class="color-frame">
@@ -31,12 +27,17 @@
                   <li class="signup-inactive"><a class="btn">Зарегистрироваться </a></li>
                 </ul>
           </div>
+          
+            
             <form class="form-signin"  method='POST' >
               {% csrf_token %}
               <label for="username">email</label>
               <input type="email" name="username" class="form-styling">
               <label for="password">пароль</label>
               <input type="password" name="password" class="form-styling">
+              {% if form.errors %}
+                <p class="form-signin_error"> Email или пароль не верный.</p>
+              {% endif %}
               <div class="btn-animate">
                      <input class="btn-signin" type="submit" value="ВОЙТИ" >
                   </div>
@@ -58,10 +59,18 @@
               </div>
               <label for="password">Повторите пароль</label>
               <input type="password" name="password2" class="form-styling">
+              {% if form.password1 != form.password2 %}
+                <p class="form-signin_error"> Пароли не совпадают</p>
+              {% endif %}
               <div class="btn-animate">
                      <input class="btn-signin" type="submit" value="ЗАРЕГИСТРИРОВАТЬСЯ" >
-                </div>
+              </div>
             </form>
+            {% if form.errors %}
+              <div class="alert alert-danger">Please fix the following errors:
+                {{form.errors}}
+              </div>
+            {% endif %}
           
                 <div  class="success">
                   <svg width="270" height="270" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -76,10 +85,7 @@
                 </div>
          
           </div>
-      </div>
-        
-
-        
+      </div> 
       <a id="refresh" value="Refresh" onClick="history.go()">
         <svg class="refreshicon"   version="1.1" id="Capa_1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             width="25px" height="25px" viewBox="0 0 322.447 322.447" style="enable-background:new 0 0 322.447 322.447;"
