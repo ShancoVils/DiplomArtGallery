@@ -300,7 +300,7 @@ var cropper = $image.data('cropper');
                 enctype: 'multipart/form-data',
                 data: fd,
                 success: function(){
-                    console.log('збс', success)
+                    console.log('збс')
                 },
                 error: function(error){
                     console.log('error', error)
