@@ -123,7 +123,7 @@
                     <span class="picture-category">Категория: {{Works.category}}</span>
                     <hr>
                     <span class="work-price"> &#8381 {{Works.price}}</span>
-                    <label for="testbuy"><p class="btn-buy" type="submit" value="КУПИТЬ" >КУПИТЬ</p</label>
+                    <label class="btn-buy" for="testbuy">КУПИТЬ</label>
                 </div>
                 <div class="discription-block">
                     <h1>О работе</h1>
@@ -140,7 +140,7 @@
                         <input type="hidden" name="quickpay-form" value="donate">
                         <input type="hidden" name="targets" value="транзакция {{Works.title}}">
                         <input type="text" name="sum" value={{Works.price}} data-type="number">
-                        <input type="hidden" name="comment" value="Хотелось бы получить дистанционное управление.">
+                        <input type="hidden" name="comment" value="">
                         <input type="hidden" name="need-fio" value="true">
                         <input type="hidden" name="need-email" value="true">
                         <input type="hidden" name="need-phone" value="false">

@@ -417,8 +417,13 @@ header button:hover{
 .catalog-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content:space-between;
+
 }
+
+
+
+
 
 .head-title {
   font-size: 2em;
@@ -711,7 +716,7 @@ header button:hover{
 
 
 
-@media ( max-width:600px) {
+@media ( max-width:720px) {
   .contact-container{
     flex-direction: column;
   }
@@ -1002,9 +1007,7 @@ header button:hover{
     padding: 5px;
   
   }
-  .catalog-list{
-    justify-content: center;
-  }
+
 
   .head-title{
     text-align: center;
@@ -1077,6 +1080,13 @@ header button:hover{
   
 }
 
+@media (max-width:708px){
+  .item:not(:first-of-type){
+    margin-left: 20%;
+  
+  }
+}
+
 
 @media (max-width:320px){
 
@@ -1140,7 +1150,7 @@ header button:hover{
 
   .user-info_block{
     width: 50vw;
-    margin-top: 18vh;
+    margin-top: 180px;
     height: 100px;
   }
 
@@ -1151,6 +1161,20 @@ header button:hover{
   .user-info_block-first_2{
     height: 70%;
   }
+
+
+  
+  .avatarka_header img{
+    width: 45px;
+    border-radius: 50%;
+  }
+
+  .item:not(:first-of-type){
+    margin-left: 0%;
+  
+  }
+
+
 
 }
 
@@ -1163,4 +1187,5 @@ header button:hover{
 
 
 }
+
 

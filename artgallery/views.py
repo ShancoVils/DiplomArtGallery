@@ -130,8 +130,7 @@ def register(request):
         else:
             form = RegisterUserForm()
 
-
-    return render(request, 'registration/login.html', {'form': form})
+    return HttpResponseRedirect('/')
 
 
 

@@ -1,19 +1,29 @@
 
 
 
-html, body * { box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
+html, body * { 
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+ }
+
+
+ 
+html{ 
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  background: url(/static/img/login_background.jpg)center top/cover;
+  
+ }
+
+ body{
+  background:rgba(0, 0, 0, 0.7);
+ }
 
 *{
   margin: 0;
   padding: 0;
 }
-.mainbackground{
-  
-  background: url(/static/img/login_background.jpg) no-repeat center top/cover;
-  height: 100%;
-  width: 100%;
 
-}
 
 .logo{
   margin: 20% 0 0 5%;
@@ -45,7 +55,8 @@ html, body * { box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
 }
 
 .mainbackgroundcolor{
-  background:rgba(0, 0, 0, 0.7);
+  
+  height: 100vh;
 }
 
 .frame {
