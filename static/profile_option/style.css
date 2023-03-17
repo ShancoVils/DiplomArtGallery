@@ -1,0 +1,85 @@
+
+section{
+    padding-top: 100px;
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 65.7%;
+    margin: 0 auto;
+    box-shadow: 0px 0px 25px 14px rgba(34, 60, 80, 0.2);
+}
+
+.top-info{
+    margin-left: 4%;
+    font-size: 20pt;
+}
+
+
+
+.option label{
+    margin-left: 10%;
+    font-size: 14pt;
+
+}
+
+.option input{
+    margin-left: 5%;
+    font-size: 14pt;
+    margin: 0 auto;
+    width: 80%;
+    border: 1px solid #c70202;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background: rgb(255, 255, 255);
+}
+
+
+
+.login-change{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+.password-change{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.field_login, .field_bill{
+    width: 40%;
+    margin-left: 4%;
+    margin-top: 20px;
+}
+
+
+.btn-signin{
+    margin-left: 50%;
+    transition: 0.4s;
+}
+
+.btn-signin:hover{
+    color: rgb(255, 255, 255);
+    background: #c70202;
+    transition: 0.4s;
+}
+
+hr{
+    border: 1px solid #c70202;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.gghh{
+    display: none;
+}
+
+
+.numberschet:focus .gghh{
+    display: block;
+}
+

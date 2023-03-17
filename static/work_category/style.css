@@ -1,0 +1,89 @@
+
+.catalog-list{
+    display: inline-flex;
+    flex-wrap: nowrap;
+}
+
+
+
+.testslide{
+    display: flex;
+    margin: 0 auto;
+}
+
+.slider_container{
+    width: 100%;
+    padding-top: 100px;
+    display: flex;
+    margin-left: 50px;
+}
+
+
+.slider_buttons{
+    margin-top: 100px;
+    position: absolute;
+    z-index: 100;
+    display: flex;
+}
+
+.button_slider{
+    opacity: 0.5;
+    justify-content: center;
+    font-size: 70pt;
+    transition: 0.3s;
+}
+
+
+.button_slider:hover{
+    opacity: 1;
+    transition: 0.3s;
+    color: rgb(141, 9, 9);
+
+}
+
+#left_button_label{
+    display: none;
+}
+
+#left_button_label_photoshop{
+    display: none;
+}
+
+#left_button_label_illustrator{
+    display: none;
+}
+
+#left_button_label_ui{
+    display: none;
+}
+
+#left_button_label_photo{
+    display: none;
+}
+
+#left_button_label_pd{
+    display: none;
+}
+
+.button_slider:last-child{
+    margin-left: 90vw;
+
+}
+
+.item_on{
+    margin-left: 27px;
+    margin-right: 27px;
+}
+.slider_container_block{
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider_container_block label{
+    cursor: pointer;
+}
+
+.slider_container_block button{
+    display: none;
+}
+
