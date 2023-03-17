@@ -1,1 +1,0 @@
-web: gunicorn --pythonpath artgallery project.wsgi

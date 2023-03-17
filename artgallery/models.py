@@ -15,7 +15,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='profile_image', blank=True)
     background_image = models.ImageField(upload_to = 'background-user_image', blank=True)
-    bill_number = models.IntegerField(max_length=16, null=True, blank=True)
+    bill_number = models.IntegerField(null=True, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
